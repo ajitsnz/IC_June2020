@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using NUnit.Framework;
+﻿using FluentAssertions;
+using Newtonsoft.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
 
@@ -52,12 +52,26 @@ namespace IC_June2020.BDD.Steps
         [Then(@"It should be successfully created")]
         public void ThenItShouldBeSuccessfullyCreated()
         {
-            Assert.Multiple(() =>
-         {
-             Assert.AreEqual(postResponse.data.company_name, orgCustomer.company_name, "comparing company name");
-             Assert.AreEqual(postResponse.data.company_name, orgCustomer.country, "comparing country");
-             Assert.AreEqual(postResponse.data.company_name, orgCustomer.currency, "comparing currency");
-         });
+            //Object1 - postResponse.data 
+            //Object2 - orgCustomer
+
+            //   Assert.Multiple(() =>
+            //{
+            //    Assert.AreEqual(postResponse.data.company_name, orgCustomer.company_name, "comparing company name");
+            //    Assert.AreEqual(postResponse.data.country, orgCustomer.country, "comparing country");
+            //    Assert.AreEqual(postResponse.data.currency, orgCustomer.currency, "comparing currency");
+            //});
+
+            //Fluent Assertion 
+            //Hack 
+            //postResponse.data.id = 0;
+
+            Customer actual = postResponse.data;
+
+            actual.Should().BeEquivalentTo(orgCustomer, options => options.Excluding(o => o.id));
+
+            //string comparision 
+            //  postResponse.data.Should().Be(orgCustomer);
 
         }
     }

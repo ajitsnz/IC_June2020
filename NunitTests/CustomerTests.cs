@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
@@ -43,6 +44,8 @@ namespace IC_June2020
             CustomerResponse getResponse = JsonConvert.DeserializeObject<CustomerResponse>(getRes.Content);
 
             //Validating reponse .....
+            postResponse.data.Should().BeEquivalentTo(cust,
+            options => options.Excluding(o => o.id));
 
         }
 
