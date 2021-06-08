@@ -9,22 +9,23 @@ namespace IC_June2020.BDD.Steps
     public class CustomerAPISteps
     {
         string CustomerJsonBody;
-        public CustomerAPI custApi;
-        public readonly static string email = "user17@sector36.com";
-        public readonly static string password = "user@12023";
+        public CustomerAPI customerApi;
         Customer orgCustomer;
+
+
+        public readonly ScenarioContext scenarioContext;
+
+        public CustomerAPISteps(ScenarioContext scenarioContext)
+        {
+            this.scenarioContext = scenarioContext;
+        }
+
         [Given(@"Create Customer Data")]
         public void GivenCreateCustomerData()
         {
-            //Temp 
-            custApi = new CustomerAPI();
-            User user = new User(email, password);
-            string auth = JsonConvert.SerializeObject(user);
-            string token = BaseAPI.GetAuthToken(auth);
-            BaseAPI.token = token;
-            //Temp
-
-
+            customerApi = (CustomerAPI)scenarioContext["API"];
+            //Example 
+            string authKey = (string)scenarioContext["AuthKey"];
             orgCustomer = new Customer
             {
                 company_name = "testing",
@@ -44,7 +45,7 @@ namespace IC_June2020.BDD.Steps
         [When(@"Post Customer Data")]
         public void WhenPostCustomerData()
         {
-            IRestResponse responseData = custApi.PostCustomer(CustomerJsonBody);
+            IRestResponse responseData = customerApi.PostCustomer(CustomerJsonBody);
             postResponse = JsonConvert.DeserializeObject<CustomerResponse>(responseData.Content);
 
         }
@@ -74,5 +75,31 @@ namespace IC_June2020.BDD.Steps
             //  postResponse.data.Should().Be(orgCustomer);
 
         }
+
+        [When(@"Delete Customer")]
+        public void WhenDeleteCustomer()
+        {
+            //add your code
+        }
+
+        [Then(@"It should be successfully Delete")]
+        public void ThenItShouldBeSuccessfullyDelete()
+        {
+            //add your code
+        }
+
+        [When(@"Update Customer")]
+        public void WhenUpdateCustomer()
+        {
+            //add your code
+        }
+
+        [Then(@"It should be successfully updated")]
+        public void ThenItShouldBeSuccessfullyUpdated()
+        {
+            //add your code
+        }
+
+
     }
 }
