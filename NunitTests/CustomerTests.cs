@@ -9,6 +9,8 @@ namespace IC_June2020
         [Test]
         public void Create_Customer_Test()
         {
+
+            //Create customer 
             Customer cust = new Customer
             {
                 company_name = "testing",
@@ -21,19 +23,27 @@ namespace IC_June2020
             };
 
 
+            //Serializing body 
             string jsonBody = JsonConvert.SerializeObject(cust);
 
+
+            //post customer 
             IRestResponse responseData = custApi.PostCustomer(jsonBody);
 
             TestContext.WriteLine(responseData.Content);
 
+            //deserialize object 
             CustomerResponse postResponse = JsonConvert.DeserializeObject<CustomerResponse>(responseData.Content);
 
             int id = postResponse.data.id;
 
+
             IRestResponse getRes = custApi.GetCustomer(id);
 
             CustomerResponse getResponse = JsonConvert.DeserializeObject<CustomerResponse>(getRes.Content);
+
+            //Validating reponse .....
+
         }
 
         [Test]

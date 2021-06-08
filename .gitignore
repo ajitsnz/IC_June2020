@@ -4,3 +4,9 @@ obj
 bin/Debug/
 obj/Debug/
 obj/Debug/
+.vs/
+
+obj/IC_June2020.csproj.nuget.dgspec.json
+obj/IC_June2020.csproj.nuget.g.props
+obj/IC_June2020.csproj.nuget.g.targets
+obj/project.assets.json
